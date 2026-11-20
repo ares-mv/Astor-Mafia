@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0b">
+<title>ASTOR MAFIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0b;--s1:#111113;--ln:#242427;--ink:#f3f1ee;--mut:#8b8b92;--red:#d4141c;--d:'Bebas Neue',Impact,'Arial Narrow',sans-serif;--b:'Poppins',system-ui,sans-serif;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{overflow-x:clip;margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.65 var(--b);-webkit-text-size-adjust:100%}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+a{color:inherit}
+:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.w{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:72px 0 8px;scroll-margin-top:12px}
+.sh{display:flex;flex-direction:column;gap:4px;margin-bottom:32px}
+.sh span{font:400 20px var(--d);color:var(--red);letter-spacing:.1em}
+.sh h2{margin:0;font:400 clamp(42px,12vw,96px)/.9 var(--d);text-transform:uppercase;letter-spacing:.01em;overflow-wrap:anywhere}
+.lab{font:500 12px var(--b);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin:36px 0 14px;display:flex;align-items:center;gap:12px}
+.lab::after{content:"";flex:1;height:1px;background:var(--ln)}
+.ph{position:relative;overflow:hidden;background:#17171a;display:grid;place-items:center;font:400 44px var(--d);color:#34343a;filter:grayscale(1);transition:filter .3s}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+button:hover .ph,button:focus-visible .ph,.box .ph{filter:none}
+.btn{display:inline-block;background:var(--red);color:#fff;text-decoration:none;padding:11px 22px;font:600 13px var(--b);letter-spacing:.04em;margin-top:6px}
+/* dock */
+.dock{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:30;display:flex;padding:5px;background:#0e0e10;border:1px solid var(--ln);border-radius:99px;max-width:calc(100vw - 16px)}
+.dock a{position:relative;z-index:1;padding:9px 9px;font:500 12px var(--b);color:var(--mut);text-decoration:none;border-radius:99px;white-space:nowrap;transition:color .2s}
+.dock a[aria-current=true]{color:#fff}
+.dock i{position:absolute;top:5px;bottom:5px;left:0;width:0;background:var(--red);border-radius:99px;opacity:0;transition:transform .3s,width .3s,opacity .2s}
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:32px 20px 120px}
+.lg{width:min(80vw,440px);aspect-ratio:1;-webkit-mask-image:radial-gradient(circle,#000 56%,transparent 71%);mask-image:radial-gradient(circle,#000 56%,transparent 71%)}
+.lg img{width:100%;height:100%;object-fit:cover;display:block}
+.tag{margin:6px 0 22px;font:400 clamp(26px,6vw,40px)/1.1 var(--d);letter-spacing:.05em}
+.tag em{display:block;font-style:normal;color:var(--mut)}
+.cta{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--red);padding:12px 22px;text-decoration:none;font:500 13px var(--b);transition:background .2s}
+.cta:hover{background:var(--red)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);width:100%;max-width:520px;margin:44px 0 0;border-top:1px solid var(--ln)}
+.stats div{padding-top:14px}
+.stats dt{font:400 40px/1 var(--d)}
+.stats dd{margin:2px 0 0;font:400 12px var(--b);color:var(--mut)}
+/* about */
+.about{display:grid;gap:28px}
+.pic{position:relative;aspect-ratio:4/3;background:#141416;overflow:hidden}
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.lead{margin:0 0 18px;font:500 clamp(20px,4.6vw,28px)/1.4 var(--b)}
+.sec{margin:0;color:var(--mut)}
+/* rules */
+.rules{display:grid;gap:22px}
+.rt{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:6px;margin:0 -20px;padding-inline:20px;scrollbar-width:none}
+.rt::-webkit-scrollbar{display:none}
+.rt button{flex:none;scroll-snap-align:start;border:1px solid #34343a;padding:9px 16px;font:500 13px var(--b);color:var(--mut);display:flex;gap:8px;align-items:center}
+.rt button small{font-size:11px;opacity:.7}
+.rt button[aria-selected=true]{background:var(--red);border-color:var(--red);color:#fff}
+.rh{display:flex;align-items:baseline;gap:14px;border-bottom:1px solid var(--ln);padding-bottom:12px}
+.rh h3{margin:0;font:400 clamp(32px,8vw,52px)/1 var(--d);text-transform:uppercase}
+.rh span{color:var(--mut);font-size:13px}
+.rl{list-style:none;margin:0;padding:0;counter-reset:r}
+.rl li{counter-increment:r;display:grid;grid-template-columns:52px 1fr;gap:6px;padding:16px 0;border-bottom:1px solid var(--ln)}
+.rl li::before{content:counter(r,decimal-leading-zero);font:400 32px/1 var(--d);color:transparent;-webkit-text-stroke:1px var(--red)}
+.rl.warn li::before{color:var(--red)}
+.sw{animation:sw .3s ease-out}
+@keyframes sw{from{opacity:0;transform:translateX(12px)}}
+/* struktur */
+.own{display:grid;grid-template-columns:minmax(120px,42%) 1fr;gap:20px;align-items:end;width:100%;border-bottom:1px solid var(--ln);padding-bottom:20px}
+.own .ph{aspect-ratio:3/4}
+.own small,.lb small{font:500 12px var(--b);letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.own b{display:block;font:400 clamp(44px,12vw,84px)/.95 var(--d);text-transform:uppercase}
+.own span,.adm span,.mem span{display:block;color:var(--mut);font-size:13px}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -20px;padding:0 20px 8px;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.adm{flex:none;width:min(58vw,210px);scroll-snap-align:start}
+.adm .ph{aspect-ratio:3/4;margin-bottom:10px}
+.adm b,.mem b{display:block;font:600 14px/1.3 var(--b)}
+.mlist{display:grid;gap:0}
+.mem{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--ln);width:100%}
+.mem .ph{width:52px;height:52px;flex:none;font-size:26px}
+.mem div{flex:1;min-width:0}
+.mem i{font-style:normal;color:var(--mut);transition:transform .2s,color .2s}
+.mem:hover i{transform:translateX(4px);color:var(--red)}
+/* grup */
+.gl{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:24px 0;border-bottom:1px solid var(--ln);text-decoration:none;transition:padding .25s}
+.gl em{font:400 20px var(--d);font-style:normal;color:var(--red)}
+.gl b{display:block;font:400 clamp(34px,9vw,58px)/1 var(--d);text-transform:uppercase;transition:color .2s}
+.gl p{margin:4px 0 0;color:var(--mut);font-size:14px}
+.gl i{font:400 28px var(--d);font-style:normal;transition:transform .2s}
+.gl:hover{padding-left:10px}
+.gl:hover b{color:var(--red)}
+.gl:hover i{transform:translate(4px,-4px)}
+/* top */
+.mon{display:flex;align-items:center;gap:6px;margin-bottom:14px}
+.mon button{width:40px;height:40px;border:1px solid #34343a;display:grid;place-items:center;font-size:20px}
+.mon button:disabled{opacity:.3;cursor:default}
+.mon strong{font:400 28px var(--d);letter-spacing:.06em;min-width:190px;text-align:center;text-transform:uppercase}
+.wk{display:flex;gap:8px;overflow-x:auto;margin-bottom:22px;scrollbar-width:none}
+.wk button{flex:none;border:1px solid #34343a;padding:9px 16px;font:500 13px var(--b);color:var(--mut)}
+.wk button[aria-selected=true]{background:#fff;color:#000;border-color:#fff}
+.lb{display:grid;grid-template-columns:auto 72px 1fr;gap:16px;align-items:center;width:100%;padding:16px 0;border-top:1px solid var(--ln)}
+.lb em{font:400 56px/1 var(--d);font-style:normal;color:transparent;-webkit-text-stroke:1px var(--mut);min-width:54px}
+.lb .ph{aspect-ratio:1}
+.lb b{display:block;font:400 28px/1.05 var(--d);text-transform:uppercase}
+.lb span{font-size:12px;color:var(--mut);transition:color .2s}
+.lb:hover span{color:#fff}
+.lb.r1{grid-template-columns:auto 1fr;padding:24px 0;border-top:2px solid var(--red)}
+.lb.r1 em{font-size:clamp(90px,26vw,170px);color:var(--red);-webkit-text-stroke:0}
+.lb.r1 .ph{display:none}
+.lb.r1 b{font-size:clamp(40px,11vw,72px)}
+@media(min-width:700px){.lb.r1 .ph{display:grid;grid-column:3;width:150px}.lb.r1{grid-template-columns:auto 1fr auto}}
+footer{padding:72px 20px 120px;text-align:center;color:var(--mut);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+/* modal */
+.modal{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.82)}
+.modal.on{display:flex}
+.box{position:relative;width:100%;max-width:440px;max-height:92svh;overflow:auto;background:var(--s1);border-top:3px solid var(--red);padding:30px 24px calc(30px + env(safe-area-inset-bottom,0px));text-align:center;animation:up .25s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+.box .ph{width:140px;aspect-ratio:3/4;margin:0 auto 14px}
+.box h4{margin:0;font:400 36px/1 var(--d);text-transform:uppercase}
+.box p{color:var(--mut);margin:8px 0 14px}
+.x{position:absolute;top:8px;right:10px;width:40px;height:40px;font-size:26px;text-align:center}
+.cert{border:1px solid var(--red);outline:1px solid var(--red);outline-offset:-7px;padding:26px 14px}
+.cert .t{font:400 30px var(--d);letter-spacing:.24em;color:var(--red)}
+.cert .ph{width:120px}
+@media(min-width:700px){
+ section{padding-top:110px}.w{padding:0 32px}
+ .modal{align-items:center}.box{border:1px solid var(--ln);border-top:3px solid var(--red)}
+ .dock a{padding:10px 16px;font-size:13px}
+ .about{grid-template-columns:5fr 6fr;gap:56px;align-items:center}
+ .rules{grid-template-columns:240px 1fr;gap:56px}
+ .rt{flex-direction:column;overflow:visible;margin:0;padding:0}
+ .rt button{padding:13px 16px}
+ .rt button small{margin-left:auto}
+ .rail{display:grid;grid-template-columns:repeat(5,1fr);overflow:visible;margin:0;padding:0}
+ .adm{width:auto}
+ .mlist{grid-template-columns:1fr 1fr;column-gap:40px}
+ .own{grid-template-columns:300px 1fr;gap:40px}
+ .rt{gap:6px}
+}
+@media(max-width:420px){.dock a{padding:9px 8px;font-size:11.5px}.mon strong{min-width:0;flex:1;font-size:24px}}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}
+.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<nav class="dock" aria-label="Navigasi"><i id="ind"></i><a href="#about">About</a><a href="#rules">Rules</a><a href="#struktur">Struktur</a><a href="#grup">Grup</a><a href="#top">Top Mafia</a></nav>
+<header class="hero" id="home">
+<div class="lg"><img id="logoImg" src="logo.jpg" alt="Logo ASTOR MAFIA"></div>
+<h1 class="sr">ASTOR MAFIA</h1>
+<p class="tag">Setia pada inti, tegas saat diuji.<em>Tanpa izin, tanpa cadangan.</em></p>
+<a class="cta" href="#about">Lihat lebih jauh tentang kami <span aria-hidden="true">&darr;</span></a>
+<dl class="stats" id="stats"></dl>
+</header>
+<main class="w">
+<section id="about"><div class="sh rv"><span>01</span><h2>About us</h2></div>
+<div class="about rv"><div class="pic"><img id="aboutImg" alt="Foto ASTOR MAFIA"></div><div>
+<p class="lead">ASTOR MAFIA adalah organisasi komunitas yang dibangun atas dasar kesetiaan, aturan, dan kebersamaan. Kami bergerak sebagai satu keluarga dengan struktur yang jelas: satu Owner, lima Admin, dan para Anggota.</p>
+<p class="sec">Ganti teks ini dengan sejarah, visi, dan misi ASTOR MAFIA versi kalian.</p></div></div></section>
+<section id="rules"><div class="sh rv"><span>02</span><h2>Rules</h2></div>
+<div class="rules rv"><div class="rt" id="rtabs" role="tablist" aria-label="Kategori rules"></div>
+<div><div class="rh"><h3 id="rtitle"></h3><span id="rcount"></span></div><ol class="rl" id="rlist"></ol></div></div></section>
+<section id="struktur"><div class="sh rv"><span>03</span><h2>Struktur</h2></div>
+<div class="rv"><div class="lab">Owner</div><div id="owner"></div>
+<div class="lab">Admin</div><div class="rail" id="admin"></div>
+<div class="lab">Anggota</div><div class="mlist" id="member"></div></div></section>
+<section id="grup"><div class="sh rv"><span>04</span><h2>Daftar grup</h2></div><div class="rv" id="groups"></div></section>
+<section id="top"><div class="sh rv"><span>05</span><h2>Top Mafia bersertifikat</h2></div>
+<div class="rv"><div class="mon"><button id="pm" aria-label="Bulan sebelumnya">&lsaquo;</button><strong id="mn"></strong><button id="nm" aria-label="Bulan berikutnya">&rsaquo;</button></div>
+<div class="wk" id="wkTabs"></div><div id="pod"></div></div></section>
+</main>
+<footer>ASTOR MAFIA &mdash; setia sampai akhir</footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Detail"><div class="box"><button class="x" aria-label="Tutup" id="cx">&times;</button><div id="mc"></div></div></div>
+
+<script>
+/* ================================================================
+   EDIT DI SINI. Semua isi website ada di bagian ini.
+   FOTO: taruh file foto di folder yang SAMA dengan index.html,
+   lalu tulis nama filenya di kolom foto. Kalau file belum ada,
+   otomatis tampil inisial nama (tidak ada gambar rusak).
+   ================================================================ */
+
+/* ---------- FOTO UTAMA ---------- */
+const LOGO_FOTO  = "logo.jpg";    // logo di bagian paling atas
+const ABOUT_FOTO = "about.jpg";   // foto di samping teks About us
+
+/* ---------- RULES (tiap baris = 1 poin, nomor otomatis) ---------- */
+const RULES={
+  "Rules grup":[
+    "Semua tipe akun boleh, tetapi dilarang menampilkan wajah (no reveal face).",
+    "Toxic sewajarnya. Dilarang konten 18+ dan CDC (berbentuk grup).",
+    "Dilarang kacang, spam, dan jokes SARA.",
+    "Cinlok dan moots CF dibebaskan.",
+    "Dilarang sarkas dan bullying."
+  ],
+
+  "Rules mafia":[
+    "Dilarang OOT selama permainan Mafia berlangsung.",
+    "Jeda antarpermainan adalah 5 menit.",
+    "Bermain santai, jangan mudah emosi atau saling menghina.",
+    "Jika AFK, wajib izin terlebih dahulu.",
+    "Warga, kriminal, dan solo dilarang RC perpen.",
+    "Dilarang asal vote, kecuali jika detektif mati, WG tersisa 1, atau jumlah warga melebihi batas.",
+    "Dilarang claim SH, pasien, Kamik/Beruntung, atau memberikan informasi palsu selama permainan."
+  ],
+
+  "Rules true":[
+    "Beruntung dilarang dibunuh.",
+    "Beruntung wajib bukper. Jika tidak, dianggap bermain solo."
+  ],
+
+  "Rules baku":[
+    "Luck wajib bukper. Jika tidak, diganti Kamikaze.",
+    "Penipu dilarang menipu Luck.",
+    "Percobaan eliminasi/vote baru diperbolehkan mulai hari ke-8.",
+    "Dilarang membunuh Luck yang sudah bukper.",
+    "Pembunuh bayaran dilarang membunuh Kamik yang menggantikan tugas Luck.",
+    "Manser yang belum berubah menjadi Sersan dilarang menerima list perpen."
+  ],
+
+  "Konsekuensi":[
+    "AFK tanpa izin: warn. Maksimal 3x warn; lebih dari itu otomatis mute 12 jam (unmute otomatis setelah 12 jam).",
+    "Membocorkan list perpen/mafia: warn 1x. Tidak ada toleransi untuk alasan “tidak sengaja”.",
+    "Mengaku SH, pasien, Luck, atau peran lain yang dilarang: warn 1x.",
+    "Asal vote: warn 1x jika korban tersingkir, tidak perlu di warn jika selamat.",
+    "RC perpen padahal bukan perpen: warn 1x.",
+    "Penipu menipu Luck: warn 1x.",
+    "Pembunuh bayaran membunuh Luck/Kamikaze yang sedang menggantikan: warn 1x.",
+    "Membunuh Luck yang sudah bukper: warn 1x."
+  ]
+};
+
+/* ---------- OWNER (1 orang) ---------- */
+const OWNER = [
+  { n:"Casilas", u:"@parasitq", r:"Owner", foto:"jack.jpg" }
+];
+
+/* ---------- ADMIN (5 orang) ---------- */
+const ADMIN = [
+  { n:"Sabita", u:"@dGeulisss", r:"Admin", foto:"bitut.jpg" },
+  { n:"Jelly", u:"@beautieust", r:"Admin", foto:"jelly.jpg" },
+  { n:"Wole", u:"@AHNEOUM", r:"Admin", foto:"wole.jpg" },
+  { n:"Kevlar", u:"@wodnny", r:"Admin", foto:"kevlar.jpg" },
+  { n:"Owen", u:"@ciucak", r:"Admin", foto:"owen.jpg" }
+];
+
+/* ---------- ANGGOTA (10 orang) ---------- */
+const MEMBER = [
+  { n:"Elfaya", u:"@idedecalos", r:"Anggota", foto:"elfaya.jpg" },
+  { n:"Joce", u:"@psckenk", r:"Anggota", foto:"joce.jpg" },
+  { n:"Ciwa", u:"@chaosarises", r:"Anggota", foto:"ciwa.jpg" },
+  { n:"Elleanor", u:"@ipyunjiin", r:"Anggota", foto:"elleanor.jpg" },
+  { n:"Chaellyna", u:"@fckuthv", r:"Anggota", foto:"chaellyna.jpg" },
+  { n:"Jesslyn", u:"@lyrnanth", r:"Anggota", foto:"jesslyn.jpg" },
+  { n:"Rancy", u:"@Kyolom", r:"Anggota", foto:"rancy.jpg" },
+  { n:"Shohibatus", u:"@noturbrainn", r:"Anggota", foto:"shohibatus.jpg" }
+];
+
+/* ---------- DAFTAR GRUP (l = link, ganti "#") ---------- */
+const GROUPS = [
+  { n:"Our Group",        d:"Tempat semua anggota berkumpul dan ngobrol.",       l:"https://t.me/GodFMafia" },
+  { n:"Menfess",          d:"Kirim pesan anonim dengan aman.",                   l:"https://t.me/godfconfess" },
+  { n:"Channel Official", d:"Pengumuman dan informasi resmi ASTOR MAFIA.",       l:"https://t.me/astormafiaofc" }
+];
+
+/* ---------- TOP MAFIA BERSERTIFIKAT ----------
+   Per bulan ada 4 minggu, tiap minggu top 1, 2, 3 (total 12 sertifikat).
+   Bulan baru: copy satu blok "2026-11", ganti jadi "2026-12", dst. */
+const TOP = {
+  "2026-11": [
+    // Minggu 1
+    [
+      { n:"Nama Top 1", foto:"minggu1-top1.jpg" },
+      { n:"Nama Top 2", foto:"minggu1-top2.jpg" },
+      { n:"Nama Top 3", foto:"minggu1-top3.jpg" }
+    ],
+    // Minggu 2
+    [
+      { n:"Nama Top 1", foto:"minggu2-top1.jpg" },
+      { n:"Nama Top 2", foto:"minggu2-top2.jpg" },
+      { n:"Nama Top 3", foto:"minggu2-top3.jpg" }
+    ],
+    // Minggu 3
+    [
+      { n:"Jesslyn", foto:"jesslyn.jpg" },
+      { n:"Pricilla", foto:"pricilla.jpg" },
+      { n:"Kalula", foto:"kalula.jpg" }
+    ],
+    // Minggu 4
+    [
+      { n:"Nama Top 1", foto:"minggu4-top1.jpg" },
+      { n:"Nama Top 2", foto:"minggu4-top2.jpg" },
+      { n:"Nama Top 3", foto:"minggu4-top3.jpg" }
+    ]
+  ]
+};
+
+/* ================================================================
+   SELESAI. Di bawah ini jangan diubah kalau tidak paham.
+   ================================================================ */
+const $=id=>document.getElementById(id),BL=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+document.documentElement.classList.add("js");
+const ph=(p,c="ph")=>`<div class="${c}">${(p.n||'?')[0]}${p.foto?`<img src="${p.foto}" alt="" loading="lazy" onerror="this.remove()">`:''}</div>`;
+// Cari foto otomatis: coba nama file yang ditulis, lalu ekstensi lain (jpg, jpeg, png, webp)
+function cariFoto(file,ok){
+  const base=file.replace(/\.[^.]+$/,"");
+  const list=[file].concat(["jpg","jpeg","png","webp","JPG","JPEG","PNG"].map(e=>base+"."+e));
+  (function coba(i){
+    if(i>=list.length) return;
+    const url=list[i]+"?t="+Date.now();   // anti-cache supaya tidak nyangkut versi lama
+    const im=new Image();
+    im.onload=()=>ok(url);
+    im.onerror=()=>coba(i+1);
+    im.src=url;
+  })(0);
+}
+cariFoto(LOGO_FOTO,f=>{ $("logoImg").src=f; });
+cariFoto(ABOUT_FOTO,f=>{ $("aboutImg").src=f; });
+$("stats").innerHTML=[[OWNER.length,"Owner"],[ADMIN.length,"Admin"],[MEMBER.length,"Anggota"],[GROUPS.length,"Grup"]].map(([n,l])=>`<div><dt>${n}</dt><dd>${l}</dd></div>`).join("");
+
+// Modal
+let lastF=null;
+function openM(h){lastF=document.activeElement;$("mc").innerHTML=h;$("modal").classList.add("on");$("cx").focus()}
+function closeM(){$("modal").classList.remove("on");if(lastF)lastF.focus()}
+$("cx").onclick=closeM;$("modal").onclick=e=>{if(e.target.id==="modal")closeM()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeM()});
+
+// Rules
+const rk=Object.keys(RULES);
+function showRule(i){
+  [...$("rtabs").children].forEach((b,j)=>b.setAttribute("aria-selected",j===i));
+  const k=rk[i],l=$("rlist");
+  $("rtitle").textContent=k;$("rcount").textContent=RULES[k].length+" poin";
+  l.className="rl sw"+(k==="Konsekuensi"?" warn":"");
+  l.innerHTML=RULES[k].map(t=>`<li>${t}</li>`).join("");
+  void l.offsetWidth;
+}
+rk.forEach((k,i)=>{const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.innerHTML=`${k}<small>${RULES[k].length}</small>`;b.onclick=()=>showRule(i);$("rtabs").appendChild(b)});
+showRule(0);
+
+// Struktur
+const tg=u=>"https://t.me/"+u.replace(/^@/,"");
+function personM(p){openM(`${ph(p)}<h4>${p.n}</h4><p>${p.r}<br>${p.u}</p><a class="btn" href="${tg(p.u)}" rel="noopener">Buka di Telegram</a>`)}
+function fill(el,list,c,h){el.innerHTML="";list.forEach(p=>{const b=document.createElement("button");b.type="button";b.className=c;b.innerHTML=h(p);b.onclick=()=>personM(p);el.appendChild(b)})}
+fill($("owner"),OWNER,"own",p=>`${ph(p)}<div><small>${p.r}</small><b>${p.n}</b><span>${p.u}</span></div>`);
+fill($("admin"),ADMIN,"adm",p=>`${ph(p)}<b>${p.n}</b><span>${p.u}</span>`);
+fill($("member"),MEMBER,"mem",p=>`${ph(p)}<div><b>${p.n}</b><span>${p.u}</span></div><i aria-hidden="true">&rarr;</i>`);
+
+// Grup: link resmi Telegram (t.me), HP otomatis membuka aplikasinya kalau terpasang
+function tgLink(l){return "https://t.me/"+l.replace(/^https?:\/\/t\.me\//,"").replace(/^@/,"")}
+$("groups").innerHTML=GROUPS.map((g,i)=>`<a class="gl" href="${tgLink(g.l)}" rel="noopener"><em>0${i+1}</em><div><b>${g.n}</b><p>${g.d}</p></div><i aria-hidden="true">&nearr;</i></a>`).join("");
+
+// Top mafia
+const months=Object.keys(TOP);let mi=months.length-1,wk=0;
+function renderTop(){
+  const [y,m]=months[mi].split("-"),label=BL[+m-1]+" "+y;
+  $("mn").textContent=label;
+  $("pm").disabled=mi===0;$("nm").disabled=mi===months.length-1;
+  $("wkTabs").innerHTML="";
+  TOP[months[mi]].forEach((_,i)=>{const b=document.createElement("button");b.type="button";b.textContent="Minggu "+(i+1);b.setAttribute("aria-selected",i===wk);b.onclick=()=>{wk=i;renderTop()};$("wkTabs").appendChild(b)});
+  $("pod").innerHTML="";
+  TOP[months[mi]][wk].forEach((p,i)=>{const b=document.createElement("button");b.type="button";b.className="lb r"+(i+1);
+    b.innerHTML=`<em>0${i+1}</em>${ph(p)}<div><small>Top ${i+1} &middot; Minggu ${wk+1}</small><b>${p.n}</b><span>Lihat sertifikat &rarr;</span></div>`;
+    b.onclick=()=>openM(`<div class="cert"><div class="t">SERTIFIKAT</div><p>Top Mafia #${i+1}</p>${ph(p)}<h4>${p.n}</h4><p>Minggu ke-${wk+1}, ${label}<br>ASTOR MAFIA</p></div>`);
+    $("pod").appendChild(b)});
+}
+$("pm").onclick=()=>{mi--;wk=0;renderTop()};$("nm").onclick=()=>{mi++;wk=0;renderTop()};
+renderTop();
+
+// Navigasi: penanda aktif mengikuti section yang sedang dibuka
+const dl=[...document.querySelectorAll(".dock a")],ind=$("ind");let cur="home";
+function setA(id){cur=id;let a=null;dl.forEach(x=>{const on=x.getAttribute("href")==="#"+id;x.setAttribute("aria-current",on);if(on)a=x});
+  ind.style.opacity=a?1:0;if(a){ind.style.width=a.offsetWidth+"px";ind.style.transform=`translateX(${a.offsetLeft}px)`}}
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)setA(e.target.id)}),{rootMargin:"-45% 0px -50% 0px"});
+document.querySelectorAll("#home,main section").forEach(s=>spy.observe(s));
+addEventListener("resize",()=>setA(cur));
+
+// Muncul halus saat di-scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.1});
+document.querySelectorAll(".rv").forEach(e=>io.observe(e));
+</script>
+</body>
+</html>
